@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Investigating Deep Neural Structures and their Interpretability in the Domain of Voice Conversion</title>
+
+    <!-- style -->
+    <link rel="stylesheet" href="interpretability-demo-2020.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="section">
+      <h1>"Investigating Deep Neural Networks and their Interpretability in the Domain of Voice Conversion"</h1>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+      <h2 class="underline">Pre-experiment</h2>
+      <p>
+        This table shows examples of the output quality between using only target domain codes in G as opposed to both source-and-target domain codes.
+        These samples are from the VCC2018 dataset.
+      </p>
+      <table class="table table-bordered">
+        <tr>
+          <th>Source</th>
+          <th>Target Reference</th>
+          <th>Converted Synthesised (source-and-target codes)</th>
+          <th>Converted Synthesised (target codes)</th>
+        </tr>
+        <tr>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/trg_adv_examples/M-F/VCC2SM2_30003.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/trg_adv_examples/M-F/VCC2SF2_30003.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/trg_adv_examples/M-F/st-VCC2SM2_30003-vcto-VCC2SF2.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/trg_adv_examples/M-F/t-VCC2SM2_30003-vcto-VCC2SF2.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/trg_adv_examples/F-M/VCC2SF1_30004.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/trg_adv_examples/F-M/VCC2SM2_30004.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/trg_adv_examples/F-M/st-VCC2SF1_30004-vcto-VCC2SM2.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/trg_adv_examples/F-M/t-VCC2SF1_30004-vcto-VCC2SM2.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/trg_adv_examples/M-M/VCC2SM1_30002.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/trg_adv_examples/M-M/VCC2SM2_30002.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/trg_adv_examples/M-M/st-VCC2SM1_30002-vcto-VCC2SM2.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/trg_adv_examples/M-M/t-VCC2SM1_30002-vcto-VCC2SM2.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/trg_adv_examples/F-F/VCC2SF1_30001.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/trg_adv_examples/F-F/VCC2SF2_30001.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/trg_adv_examples/F-F/st-VCC2SF1_30001-vcto-VCC2SF2.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/trg_adv_examples/F-F/t-VCC2SF1_30001-vcto-VCC2SF2.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+        </tr>
+      </table>
+
+      <div class="divider"></div>
+
+      <h2 class="underline">Experiment 1</h2>
+      <p>Example samples from training on the VCTK dataset.</p>
+      <table class="table table-bordered">
+        <tr>
+          <th>Source</th>
+          <th>Target Reference</th>
+          <th>Converted Synthesised</th>
+        </tr>
+        <tr>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/exp_1/F-M/p229_008.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/exp_1/F-M/p232_008.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/exp_1/F-M/p229_008-vcto-p232.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/exp_1/M-M/p232_003.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/exp_1/M-M/p243_003.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/exp_1/M-M/p232_003-vcto-p243.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/exp_1/F-F/p236_004.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/exp_1/F-F/p229_004.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/exp_1/F-F/p236_004-vcto-p229.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+        </tr>
+      </table>
+
+      <div class="divider"></div>
+
+      <h2 class="underline">Experiment 2</h2>
+      <p>Example VCC2018 samples from using transfer learning, where the original dataset used to train a model was VCTK.</p>
+      <table class="table table-bordered">
+        <tr>
+          <th>Source</th>
+          <th>Target Reference</th>
+          <th>Converted Synthesised</th>
+        </tr>
+        <tr>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/exp_1/F-M/p229_008.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/exp_1/F-M/p232_008.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/exp_1/F-M/p229_008-vcto-p232.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+        </tr>
+      </table>
+
+      <div class="divider"></div>
+
+      <h2 class="underline">Experiment 3</h2>
+      <p>Example samples from networks with varying frozen layers.</p>
+      <table class="table table-bordered">
+        <tr>
+          <th>Source</th>
+          <th>Target Reference</th>
+          <th>Converted Synthesised</th>
+        </tr>
+        <tr>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/exp_1/F-M/p229_008.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/exp_1/F-M/p232_008.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="audio/interpretability-demo-2020/exp_1/F-M/p229_008-vcto-p232.wav" type="audio/wav">
+            Your browser does not support the audio element.
+            </audio>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+  </body>
+</html>

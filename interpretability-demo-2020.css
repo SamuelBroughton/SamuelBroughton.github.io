@@ -1,0 +1,22 @@
+body {
+    min-width: 720px;
+    padding: 64px;
+}
+
+/* table td, table th {
+    border: 1px solid black;
+} */
+
+.section {
+    margin: 32px 0;
+}
+
+.divider {
+    margin: 48px 0;
+    height: 2px;
+    background-color: darkgrey;
+}
+
+.underline {
+    text-decoration: underline;
+}
